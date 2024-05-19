@@ -17,4 +17,15 @@ Function.prototype.myCall = function(context, ...args){
     context.fn = this;
     context.fn(...args)
 }
+
 getName.myCall(obj);
+
+let obj2 = {
+    firstName : "Abhijeet",
+    lastName : "Mukherjee",
+    getFullName :  () => {
+        console.log(this , "this");
+        console.log(this.firstName + this.lastName)
+    }
+}
+obj2.getFullName()
