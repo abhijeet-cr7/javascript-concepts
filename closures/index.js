@@ -55,3 +55,29 @@ subscribed();
 subscribed();
 subscribed();
 subscribed();
+
+function Memoize(fn, context){
+    let memoizedResult = {};
+    console.log(fn, "func")
+    return function(...args){
+        let key = JSON.stringify(args);
+        if(!memoizedResult[key]){
+            memoizedResult[key] = fn.call(context || this, ...args);
+        }
+        return memoizedResult[key];
+    }
+}
+const clumsyProduct = (num1, num2) => {
+    for(let i=0; i<10000000; i++){
+    }
+    return num1*num2;
+};
+
+const memoizeClumsyProduct = Memoize(clumsyProduct);
+
+console.time("First call");
+console.log(memoizeClumsyProduct(999,778))
+console.timeEnd("First call");
+console.time("First call");
+console.log(memoizeClumsyProduct(999,778))
+console.timeEnd("First call");
